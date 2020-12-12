@@ -8,6 +8,8 @@ from resources.survey import Survey, SurveyList
 from resources.question import QuestionList
 from resources.agegroup import AgeGroupList
 from resources.location import LocationList
+from models.location import LocationModel
+from models.agegroup import AgeGroupModel
 
 
 app = Flask(__name__)
@@ -21,6 +23,27 @@ api = Api(app)
 @app.before_first_request
 def create_tables():
     db.create_all()
+
+    l1 = LocationModel("Asia")
+    l2 = LocationModel("North-America")
+
+    a1 = AgeGroupModel("<50")
+    a2 = AgeGroupModel(">=50")
+
+    db.session.add(l1)
+    db.session.commit()
+
+    db.session.add(l2)
+    db.session.commit()
+
+    db.session.add(a1)
+    db.session.commit()
+
+    db.session.add(a2)
+    db.session.commit()
+
+
+
 
 
 jwt = JWT(app, authenticate, identity)  # /auth

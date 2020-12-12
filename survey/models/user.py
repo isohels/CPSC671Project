@@ -8,7 +8,7 @@ class UserModel(db.Model):
     username = db.Column(db.String(80))
     password = db.Column(db.String(80))
 
-    surveys = db.relationship('SurveyModel', lazy= 'dynamic')
+    # surveys = db.relationship('SurveyModel', lazy= 'dynamic')
 
     def __init__(self, username, password):
         self.username = username
