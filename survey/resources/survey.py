@@ -38,7 +38,6 @@ class Survey(Resource):
     def post(self, survey_name):
         data = Survey.parser.parse_args()
 
-
         survey = SurveyModel(survey_name, data['user_id'])
         try:
             survey.save_to_db()
@@ -67,10 +66,11 @@ class Survey(Resource):
         questions = data.question_description
         for item in questions['data']:
             q_str = item['question']
-            print(q_str)
+
             question = QuestionModel(survey_id,q_str,0)
             try:
                 question.save_to_db()
+                print(question.json())
                 # print(question.json())
                 # print(str(question.id))
             except:

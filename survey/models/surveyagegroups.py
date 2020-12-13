@@ -25,3 +25,7 @@ class SurveyAgeGroupModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_by_survey_id(cls, _id):
+        return (cls.query.filter_by(survey_id=_id).first())

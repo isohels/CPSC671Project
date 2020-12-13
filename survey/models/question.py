@@ -1,6 +1,7 @@
 from db import db
 
 
+
 class QuestionModel(db.Model):
     __tablename__="Questions"
 
@@ -22,6 +23,14 @@ class QuestionModel(db.Model):
     @classmethod
     def find_by_name(cls,question_description):
         return cls.query.filter_by(question_description=question_description).first()
+
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(question_id=_id).first()
+
+    @classmethod
+    def find_by_survey_id(cls, _id):
+        return (cls.query.filter_by(survey_id=_id).all())
 
     def save_to_db(self):
         db.session.add(self)
