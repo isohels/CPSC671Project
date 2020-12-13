@@ -6,8 +6,8 @@ class SurveyLocationModel(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     survey_id = db.Column(db.Integer, db.ForeignKey('surveys.survey_id'))
     location_id = db.Column(db.Integer,db.ForeignKey('locations.id'))
-    survey = db.relationship("SurveyModel")
-    location = db.relationship("LocationModel")
+    # survey = db.relationship("SurveyModel")
+    # location = db.relationship("LocationModel")
 
     # locations = db.relationship('SurveyModel', lazy= 'dynamic')
 
@@ -23,5 +23,5 @@ class SurveyLocationModel(db.Model):
         db.session.commit()
 
     @classmethod
-    def find_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
+    def find_by_survey_id(cls, _id):
+        return (cls.query.filter_by(survey_id=_id).first())

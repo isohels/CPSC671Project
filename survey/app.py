@@ -8,6 +8,7 @@ from resources.survey import Survey, SurveyList
 from resources.question import QuestionList
 from resources.agegroup import AgeGroupList
 from resources.location import LocationList
+from resources.retrieve import Retrieve
 from models.location import LocationModel
 from models.agegroup import AgeGroupModel
 
@@ -55,6 +56,7 @@ api.add_resource(SurveyList, '/surveys')
 api.add_resource(QuestionList, '/questions')
 api.add_resource(AgeGroupList,'/agegroup')
 api.add_resource(LocationList,'/location')
+api.add_resource(Retrieve, '/retrieve/<string:survey_id>')
 
 
 
