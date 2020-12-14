@@ -12,7 +12,7 @@ class LocationModel(db.Model):
         self.location_description = location_description
 
     def json(self):
-        return {"location":self.location_description}
+        return {"location":self.location_description,"id":self.id}
 
     def save_to_db(self):
         db.session.add(self)

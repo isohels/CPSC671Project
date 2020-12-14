@@ -25,3 +25,25 @@ class UserRegister(Resource):
         user.save_to_db()
 
         return {"message": "User created successfully."}, 201
+
+class UserLogin(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('username',
+                        type=str,
+                        required=True,
+                        help="This field cannot be blank."
+                        )
+    parser.add_argument('password',
+                        type=str,
+                        required=True,
+                        help="This field cannot be blank."
+                        )
+    def post(self):
+        data = UserRegister.parser.parse_args()
+        user = UserModel.find_by_username(data.username)
+
+        if user and  user.password == data.password:
+            return {"message": "User login successfully"}, 200
+
+        return {"message": "Invalide user requrest."}, 404
+

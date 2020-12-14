@@ -16,7 +16,7 @@ class SurveyAgeGroupModel(db.Model):
         self.agegroup_id = agegroup_id
 
     def json(self):
-        return {"survey_id":self.survey_id,"agegroup_id":self.agegroup_id}
+        return {"id":self.id,"survey_id":self.survey_id,"agegroup_id":self.agegroup_id}
 
     def save_to_db(self):
         db.session.add(self)

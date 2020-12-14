@@ -9,13 +9,6 @@ class SurveyModel(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     survey = db.relationship('UserModel')
-    # question = db.relationship('QuestionModel')
-    # location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
-    # location = db.relationship('LocationModel')
-    #
-    # agegroup_id = db.Column(db.Integer, db.ForeignKey('agegroups.id'))
-    # agegroup = db.relationship('AgeGroupModel')
-
 
     def __init__(self,survey_name,user_id):
         self.survey_name = survey_name
@@ -23,7 +16,7 @@ class SurveyModel(db.Model):
 
 
     def json(self):
-        return{'name': self.survey_name,'id':self.survey_id}
+        return{'name': self.survey_name,'id':self.survey_id,"user_id":self.user_id}
 
 
     @classmethod

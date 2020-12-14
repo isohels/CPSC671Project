@@ -16,7 +16,7 @@ class SurveyLocationModel(db.Model):
         self.location_id = location_id
 
     def json(self):
-        return {"survey_id":self.survey_id,"location_id":self.location_id}
+        return {"id":self.id,"survey_id":self.survey_id,"location_id":self.location_id}
 
     def save_to_db(self):
         db.session.add(self)

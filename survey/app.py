@@ -4,13 +4,14 @@ from flask_jwt import JWT
 
 from security import authenticate, identity
 from resources.user import UserRegister
-from resources.survey import Survey, SurveyList
+from resources.survey import Survey, SurveyList, UpdateSurvey, SurveyListByUsername
 from resources.question import QuestionList
-from resources.agegroup import AgeGroupList
-from resources.location import LocationList
+from resources.agegroup import AgeGroupList, SurveyAgeGroupList
+from resources.location import LocationList,SurveyLocationList
 from resources.retrieve import Retrieve
 from models.location import LocationModel
 from models.agegroup import AgeGroupModel
+from resources.user import UserLogin
 
 
 app = Flask(__name__)
@@ -25,23 +26,23 @@ api = Api(app)
 def create_tables():
     db.create_all()
 
-    l1 = LocationModel("Asia")
-    l2 = LocationModel("North-America")
+    # l1 = LocationModel("Asia")
+    # l2 = LocationModel("North-America")
 
-    a1 = AgeGroupModel("<50")
-    a2 = AgeGroupModel(">=50")
+    # a1 = AgeGroupModel("<50")
+    # a2 = AgeGroupModel(">=50")
 
-    db.session.add(l1)
-    db.session.commit()
+    # db.session.add(l1)
+    # db.session.commit()
 
-    db.session.add(l2)
-    db.session.commit()
+    # db.session.add(l2)
+    # db.session.commit()
 
-    db.session.add(a1)
-    db.session.commit()
+    # db.session.add(a1)
+    # db.session.commit()
 
-    db.session.add(a2)
-    db.session.commit()
+    # db.session.add(a2)
+    # db.session.commit()
 
 
 
@@ -51,13 +52,21 @@ jwt = JWT(app, authenticate, identity)  # /auth
 
 
 api.add_resource(UserRegister, '/register')
-api.add_resource(Survey, '/survey/<string:survey_name>')
-api.add_resource(SurveyList, '/surveys')
-api.add_resource(QuestionList, '/questions')
-api.add_resource(AgeGroupList,'/agegroup')
-api.add_resource(LocationList,'/location')
-api.add_resource(Retrieve, '/retrieve/<string:survey_id>')
+api.add_resource(UserLogin,'/login')
 
+api.add_resource(AgeGroupList,'/agegroups')
+api.add_resource(LocationList,'/locations')
+
+api.add_resource(Survey, '/create_survey/<string:username>')
+api.add_resource(SurveyList, '/surveys')
+api.add_resource(SurveyListByUsername, '/surveys/<string:username>')
+api.add_resource(QuestionList, '/questions')
+
+api.add_resource(Retrieve, '/survey/<int:survey_id>')
+api.add_resource(UpdateSurvey,'/submit_survey/<int:survey_id>')
+
+api.add_resource(SurveyAgeGroupList,'/surveyagegroups')
+api.add_resource(SurveyLocationList,'/surveylocations')
 
 
 

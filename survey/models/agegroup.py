@@ -12,7 +12,7 @@ class AgeGroupModel(db.Model):
         self.group_description = group_description
 
     def json(self):
-        return{"agegroup":self.group_description}
+        return{"description":self.group_description,"id":self.id}
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()

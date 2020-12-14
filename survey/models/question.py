@@ -18,7 +18,7 @@ class QuestionModel(db.Model):
         self.score = score
 
     def json(self):
-        return {'question':self.question_description,'score':self.score,"survey_id":self.survey_id}
+        return {'id':self.question_id,'question':self.question_description,'score':self.score,"survey_id":self.survey_id}
 
     @classmethod
     def find_by_name(cls,question_description):
