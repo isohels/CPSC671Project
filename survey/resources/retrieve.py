@@ -6,6 +6,7 @@ from models.surveyagegroups import SurveyAgeGroupModel
 from models.question import QuestionModel
 from models.location import LocationModel
 from models.agegroup import AgeGroupModel
+from models.gender import GenderModel, SurveyGenderModel
 from db import db
 import sqlite3
 
@@ -59,7 +60,22 @@ class Retrieve(Resource):
         
         for key in age_dic:
             result.append({'id':key,"description":age_dic[key]})
-        
         response["age_group_data"] = result
+
+        #getting data ready for survey gender based 
+        survey_gender = db.session.query(GenderModel,SurveyGenderModel).outerjoin(SurveyGenderModel,GenderModel.id == SurveyGenderModel.gender_id).filter_by(survey_id = survey_id).all()
+        print(survey_gender)
+        result = []
+        gender_dic = {}
+        for gender, _ in survey_gender:
+            if gender.id in gender_dic.keys():
+                gender_dic[gender.id]+=1
+            else:
+                gender_dic[gender.id] = 1
+        print(gender_dic)
+        for key in gender_dic:
+            result.append({'id':key,"count":gender_dic[key]})
+        
+        response["gender_data"] = result
 
         return response

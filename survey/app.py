@@ -12,6 +12,8 @@ from resources.retrieve import Retrieve
 from models.location import LocationModel
 from models.agegroup import AgeGroupModel
 from resources.user import UserLogin
+from models.gender import GenderModel
+from resources.gender import GenderList
 
 
 app = Flask(__name__)
@@ -25,18 +27,24 @@ api = Api(app)
 @app.before_first_request
 def create_tables():
     db.create_all()
-# ish Columbia","Manitoba","New Brunswick","Ontario","Quebec","Other"]
-#     for i in range(0,len(l1)):
-#         loc = LocationModel(l1[i])
-#         db.session.add(loc)
-#         db.session.commit()
 
-#     a1 = ["less than 20", "20 - 40","41 - 60","greater than 60"]
-#     for i in range(0,len(a1)):
-#         age = AgeGroupModel(a1[i])
-#         db.session.add(age)
-#         db.session.comm
-    # l1 = ["Alberta","Britit()
+    g1 = ["Male","Female","Other"]
+    for i in range(0,len(g1)):
+        loc = GenderModel(g1[i])
+        db.session.add(loc)
+        db.session.commit()
+
+    l1 = ["Alberta","British Columbia","Manitoba","New Brunswick","Ontario","Quebec","Other"]
+    for i in range(0,len(l1)):
+        loc = LocationModel(l1[i])
+        db.session.add(loc)
+        db.session.commit()
+
+    a1 = ["less than 20", "20 - 40","41 - 60","greater than 60"]
+    for i in range(0,len(a1)):
+        age = AgeGroupModel(a1[i])
+        db.session.add(age)
+        db.session.commit()
 
 
 
@@ -51,6 +59,8 @@ api.add_resource(UserLogin,'/login')
 
 api.add_resource(AgeGroupList,'/agegroups')
 api.add_resource(LocationList,'/locations')
+
+api.add_resource(GenderList,'/genders')
 
 api.add_resource(Survey, '/create_survey/<string:username>')
 api.add_resource(SurveyList, '/surveys')

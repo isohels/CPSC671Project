@@ -5,6 +5,7 @@ from models.surveylocation import SurveyLocationModel
 from models.surveyagegroups import SurveyAgeGroupModel
 from models.question import QuestionModel
 from models.user import UserModel
+from models.gender import GenderModel, SurveyGenderModel
 
 class Survey(Resource):
     parser = reqparse.RequestParser()
@@ -79,6 +80,10 @@ class UpdateSurvey(Resource):
                         type=int,
                         required=True,
                         help="Surveyor should send agegroup")
+    parser.add_argument('gender_id',
+                            type = int,
+                            required=True,
+                            help="gender id is needed")
 
 
 
@@ -98,6 +103,14 @@ class UpdateSurvey(Resource):
             print(location.json())
         except:
             return{"message":"An error occured while storing the location"},500
+
+
+        gender = SurveyGenderModel(data.gender_id,survey_id)
+        try:
+            gender.save_to_db()
+            print(gender.json())
+        except:
+            return{"message":"An error occured while storing the Gender"},500
 
 
         print("storing survey age group")
