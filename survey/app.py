@@ -25,24 +25,19 @@ api = Api(app)
 @app.before_first_request
 def create_tables():
     db.create_all()
+# ish Columbia","Manitoba","New Brunswick","Ontario","Quebec","Other"]
+#     for i in range(0,len(l1)):
+#         loc = LocationModel(l1[i])
+#         db.session.add(loc)
+#         db.session.commit()
 
-    # l1 = LocationModel("Asia")
-    # l2 = LocationModel("North-America")
+#     a1 = ["less than 20", "20 - 40","41 - 60","greater than 60"]
+#     for i in range(0,len(a1)):
+#         age = AgeGroupModel(a1[i])
+#         db.session.add(age)
+#         db.session.comm
+    # l1 = ["Alberta","Britit()
 
-    # a1 = AgeGroupModel("<50")
-    # a2 = AgeGroupModel(">=50")
-
-    # db.session.add(l1)
-    # db.session.commit()
-
-    # db.session.add(l2)
-    # db.session.commit()
-
-    # db.session.add(a1)
-    # db.session.commit()
-
-    # db.session.add(a2)
-    # db.session.commit()
 
 
 

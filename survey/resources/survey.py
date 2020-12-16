@@ -46,19 +46,19 @@ class Survey(Resource):
             except:
                 return{"message": "An error occured while storing the question"},500
 
-        return {"message":"data saved successfully"}
+        return {"message":"data saved successfully"}, 201
 
 
 class SurveyList(Resource):
     def get(self):
-        return{'surveys': list(map(lambda x: x.json(), SurveyModel.query.all()))}
+        return{'surveys': list(map(lambda x: x.json(), SurveyModel.query.all()))}, 200
     
 class SurveyListByUsername(Resource):
     def get(self, username):
         user = UserModel.find_by_username(username)
         if user is None:
             return {"message":"Invalid User!"}, 404
-        return{'surveys': list(map(lambda x: x.json(), SurveyModel.query.filter_by(user_id = user.id)))}
+        return{'surveys': list(map(lambda x: x.json(), SurveyModel.query.filter_by(user_id = user.id)))}, 200
 
 
 class UpdateSurvey(Resource):
@@ -121,4 +121,4 @@ class UpdateSurvey(Resource):
                 question.save_to_db()
             except:
                 return{"message": "An error occured while storing the question"},500
-        return {"message":"data updated successfully"}
+        return {"message":"data updated successfully"}, 200

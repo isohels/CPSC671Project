@@ -20,13 +20,13 @@ class Retrieve(Resource):
         survey = SurveyModel.find_by_id(survey_id)
         if survey is None:
             return {"message":"Can't find the survey!"}, 404
-        response["survey_name"] = survey.survey_name
-        response["survey_id"] = survey.survey_id
+        response["name"] = survey.survey_name
+        response["id"] = survey.survey_id
 
         questions = QuestionModel.query.filter_by(survey_id = survey_id)
         questions_data = []
         for question in questions:
-            question_data = {"question_description":question.question_description,
+            question_data = {"question_id":question.question_id,"question_description":question.question_description,
                             "score":question.score}
             questions_data.append(question_data)
         
@@ -42,7 +42,7 @@ class Retrieve(Resource):
                 loc_dic[location.id] = 1
         
         for key in loc_dic:
-            result.append({'location_id':key,"count":loc_dic[key]})
+            result.append({'id':key,"location":loc_dic[key]})
         
         response["location_data"] = result
 
@@ -58,7 +58,7 @@ class Retrieve(Resource):
                 age_dic[agegroup.id] = 1
         
         for key in age_dic:
-            result.append({'grp_id':key,"count":age_dic[key]})
+            result.append({'id':key,"description":age_dic[key]})
         
         response["age_group_data"] = result
 
